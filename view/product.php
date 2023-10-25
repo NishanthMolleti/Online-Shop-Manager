@@ -11,9 +11,9 @@
         <main>
             <h1>Product Manager</h1>
             <p>No product!</p>
-            <p><a href="index.php?action=show_admin_menu">Admin Menu</a></p>
-            <p><a href="index.php?action=show_users">User</a></p>
-            <p><a href="index.php?action=logout">Logout</a></p>
+            <p><a href="admin_menu.php">Admin Menu</a></p>
+            <p><a href="users.php">User</a></p>
+            <p><a href="login.php">Logout</a></p>
         </main>
     </body>
 </html>

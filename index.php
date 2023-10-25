@@ -3,14 +3,23 @@
 
 require_once('model/pdo.php');
 
-// admin: joel@ucmo.edu/joeldb, admin@ucmo.edu/admin, sys@ucmo.edu/syspswd
-// user: joel@ucmo.edu/joeldb, brian@ucmo.edu/briangood, ted@ucmo.edu/tedbest
-
-$cookie_name = "test";
-$cookie_value = "Test";
-setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
-
-$action = "login";
+// if(isset($_SESSION['email'])) {
+//     // The session has a value for 'username'
+//     $action = "show_admin_menu";
+// } else {
+//     // The session does not have a value for 'username'
+//     $action = "login";
+// }
+if (isset($_COOKIE['email'])) {
+    // A session is active
+    //$action = "show_admin_menu";
+    include('view/admin_menu.php');
+    
+} else {
+    // No session is active
+    $action = "login";
+}
+//$action = "login";
 
 // Perform the specified action
 switch($action) {
@@ -33,8 +42,16 @@ switch($action) {
         break;
     case 'logout':
         //Session destory
+        $cookie_expiration_time =  time()-86400;
+ 
+        // Set the username and password cookies
+        setcookie('email', $encrypted_username, $cookie_expiration_time, '/');
+        setcookie('password', $encrypted_password, $cookie_expiration_time, '/');
+        session_destroy();
+        session_start();
         $login_message = 'You have been logged out.';
         include('view/login.php');
         break;
 }
+
 ?>
